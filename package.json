@@ -1,0 +1,8 @@
+{
+  "name": "node-express-mongoose-framework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "sam hinton <sam.hinton88@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
