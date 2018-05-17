@@ -9,7 +9,7 @@ function deleteFile(dir, file) {
     let filePath = path.join(dir, file);
     fs.lstat(filePath, function(err, stats) {
       if (err) {
-        console.log(err)
+
         return reject(err);
       }
 

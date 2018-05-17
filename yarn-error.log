@@ -23,7 +23,8 @@ npm manifest:
     "private": true,
     "scripts": {
       "index": "nodemon",
-      "test": "jest --watch"
+      "watch": "jest --watch",
+      "test": "jest"
   
     },
     "dependencies": {
@@ -3608,7 +3609,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c jest --watch
+  Arguments: -c jest
   Directory: /Users/samhinton/code/samhinton88/node-express-mongoose-framework
   Output:
   

@@ -5,9 +5,14 @@
   "author": "sam hinton <sam.hinton88@gmail.com>",
   "license": "MIT",
   "private": true,
+  "jest": {
+    "modulePathIgnorePatterns" : ["/dist/"],
+    "verbose": true
+  },
   "scripts": {
     "index": "nodemon",
-    "test": "jest --watch"
+    "watch": "jest --watch",
+    "test": "jest"
 
   },
   "dependencies": {
