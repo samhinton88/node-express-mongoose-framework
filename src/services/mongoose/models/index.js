@@ -1,4 +1,4 @@
-const { capitalise, writeContent } = require('../../../utils');
+const { capitalise, writeContent, makeDir } = require('../../../utils');
 const mkFileStruct = require('../model-config');
 const fs = require('fs');
 const path = require('path');
@@ -72,34 +72,14 @@ function makeFile(rootName, config) {
           reject(err);
         }
 
-        resolve('true');
+        resolve();
       });
     })
 
     p
-    .then((obj) => {console.log(obj)})
+    .then((obj) => {})
     .catch((err) => {throw new Error("HIGH" + err)})
     .catch((err) => {log(err)})
-
-}
-
-function makeDir(rootName) {
-
-  const p = new Promise(function(resolve, reject) {
-      fs.mkdir(rootName, (err) => {
-        if (err) {
-          console.log(err)
-          reject(err)
-        }
-        console.log('success')
-        resolve('success')
-      })
-    })
-
-  p
-  .then((obj) => {console.log(obj)})
-  .catch((err) => {throw new Error("HIGH" + err)})
-  .catch((err) => {log(err)})
 }
 
 function log(code,...strings) {

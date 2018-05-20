@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js test
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js run dummy
 
 PATH: 
   ./bin:/Users/samhinton/.rbenv/shims:/usr/local/opt/rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/Panda3D/bin:/usr/local/sbin
@@ -21,10 +21,16 @@ npm manifest:
     "author": "sam hinton <sam.hinton88@gmail.com>",
     "license": "MIT",
     "private": true,
+    "jest": {
+      "modulePathIgnorePatterns" : ["/dist/"],
+      "verbose": true
+    },
     "scripts": {
       "index": "nodemon",
       "watch": "jest --watch",
-      "test": "jest"
+      "test": "jest",
+      "dummy": "node index.js create resource restaurant createdAt:D,d[now] name:S,r email:S,r,u score:N,d[0] tags:[S]",
+      "watchdummy": "nodemon 'dummy'"
   
     },
     "dependencies": {
@@ -3609,7 +3615,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c jest
+  Arguments: -c node index.js create resource restaurant createdAt:D,d[now] name:S,r email:S,r,u score:N,d[0] tags:[S]
   Directory: /Users/samhinton/code/samhinton88/node-express-mongoose-framework
   Output:
   

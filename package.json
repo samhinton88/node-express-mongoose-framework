@@ -12,7 +12,9 @@
   "scripts": {
     "index": "nodemon",
     "watch": "jest --watch",
-    "test": "jest"
+    "test": "jest",
+    "dummy": "node index.js create resource restaurant createdAt:D,d[now] name:S,r email:S,r,u score:N,d[0] tags:S",
+    "watchdummy": "nodemon 'dummy'"
 
   },
   "dependencies": {

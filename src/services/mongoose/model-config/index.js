@@ -33,6 +33,7 @@ module.exports = function mkFileStruct(modelName) {
 
   function mkMSchema(modelName) {
     const obj = {};
+    // config.propertyStatements.
 
     return {
         file: [

@@ -3,7 +3,7 @@ const { deleteFileStruct } = require('../../src/utils');
 const fs = require('fs');
 
 
-describe.only('Mongoose model builder', () => {
+describe.skip('Mongoose model builder', () => {
   beforeAll(async () => {
     await deleteFileStruct(
       '/Users/samhinton/code/samhinton88/node-express-mongoose-framework/dist/models',
