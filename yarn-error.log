@@ -29,7 +29,7 @@ npm manifest:
       "index": "nodemon",
       "watch": "jest --watch",
       "test": "jest",
-      "dummy": "node index.js create resource restaurant createdAt:D,d[now] name:S,r email:S,r,u score:N,d[0] tags:[S]",
+      "dummy": "node index.js create resource architect firstName:S,r lastName:S,r isClient:BOOL,d[false] buildings:ref[building] wage:N,d[0] locale:S,d[GB]",
       "watchdummy": "nodemon 'dummy'"
   
     },
@@ -3615,7 +3615,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c node index.js create resource restaurant createdAt:D,d[now] name:S,r email:S,r,u score:N,d[0] tags:[S]
+  Arguments: -c node index.js create resource architect firstName:S,r lastName:S,r isClient:BOOL,d[false] buildings:ref[building] wage:N,d[0] locale:S,d[GB]
   Directory: /Users/samhinton/code/samhinton88/node-express-mongoose-framework
   Output:
   

@@ -1,20 +1,27 @@
 'use strict'
 
+
 module.exports = function CLI(input) {
-  const cLInput = input;
+  let terminalInput =[];
+
+    terminalInput = input
+
+
 
   // id base command
-  const [directory, verb, type] = input.slice(1);
+  const [directory, verb, type] = terminalInput.slice(1);
 
-  let output;
+  let output = {};
 
   //
   switch (type) {
     case 'resource':
-      output = resourceParse(input.slice(4));
+
+      output = resourceParse(terminalInput.slice(4));
       break;
   }
 
+  output.directory = directory;
   return output;
 }
 
@@ -157,9 +164,7 @@ function lookUp(path, obj, cb) {
     cb(obj[path[path.length -1]]);
   }
 function assignValueToPath(obj, data, path) {
-    console.log('fpath ', path )
-    console.log('data', data)
-    console.log(obj)
+
 
     for (let i = 0; i < path.length -1; i++) {
       obj = obj[path[i]];

@@ -1,9 +1,7 @@
 const CLI = require('../../../src/interface');
 
-describe.only('create resource', () => {
+describe.skip('create resource', () => {
   const input = [ '/usr/local/bin/node', '/Users/samhinton/code/samhinton88/node-express-mongoose-framework/index.js', 'create', 'resource', 'user']
-
-
 
   test('create resource user populates a config object for a user', () => {
     expect(CLI(input).name).toEqual('user');
@@ -20,8 +18,8 @@ describe.only('create resource', () => {
 
   test('config is stored against new props', () => {
     input.pop();
-    input.push('createdAt:D,r');
-    expect(CLI(input).props[0]).toEqual({propName: 'createdAt', required: true, type: Date})
+    input.push('createdAt:D,r,d[now]');
+    expect(CLI(input).props[0]).toEqual({propName: 'createdAt', required: true, type: Date, default: Date.now})
   })
 
   test('stores multiple props with config', () => {
@@ -37,7 +35,6 @@ describe.only('create resource', () => {
   })
 
   test('a ref option should store a reference to another resource both on prop and parent config object', () => {
-    console.log(input)
     input.push('blogs:ref[blog]');
     expect(CLI(input).refs.length).toBe(1);
     expect(CLI(input).refs[0]).toEqual({ refName: 'blog', rel: 'hasMany'})
@@ -66,5 +63,7 @@ describe.only('create resource', () => {
     input.push('-cache');
     expect(CLI(input).controller.shouldCache).toEqual(true);
   })
+
+
 
 })
