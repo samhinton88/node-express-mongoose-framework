@@ -1,37 +1,75 @@
 const {capitalise} = require('../../../utils');
 
-module.exports = function mkFileStruct(modelName) {
+module.exports = function mkFileStruct(resourceName, identifier) {
+    switch (identifier) {
+      case 'model':
+        return mkMModel(resourceName);
+        break;
+      case 'controller':
+        return mkController(resourceName);
+        break;
+    }
+    return mkMModel(resourceName);
 
-    return mkMModel(modelName);
+    function mkController(resourceName) {
+      const obj = {};
+      console.log('resourceName TOKEN IN MODEL-CONFIG' ,resourceName)
 
-    function mkMModel(modelName) {
+      const modelClassToken = capitalise(resourceName);
+      console.log(capitalise.toString())
+      console.log(capitalise('sam_hinton'))
+      console.log('MODELCLASS TOKEN IN MODEL-CONFIG' ,modelClassToken)
+
+
+      obj[resourceName] = {
+        file: [
+        'index.js',
+        {
+          identifier: 'express_controller',
+          requiredModules: [
+            { name: modelClassToken, type: 'rel' , depth:2, prefix: 'models/' },
+
+          ],
+          bodyConfig: [
+            { }
+          ]
+
+        }
+        ]
+      }
+
+      return obj;
+
+    }
+
+    function mkMModel(resourceName) {
       const obj = {};
 
-      obj[modelName] = {
+      obj[resourceName] = {
         file: [
           'index.js',
         // this is the config passed to writeContent
           {
-            identifier: modelName,
+            identifier: 'mongoose_model',
             requiredModules: [
               { type: 'rel', name: 'schema', depth: 1 },
               { type: 'node', name: 'mongoose'}
             ],
             requiredExports: ['model'],
             bodyConfig: [
-              {type: 'mongooseModel', modelName}
+              {type: 'mongooseModel', resourceName}
             ]
           }
         ],
-        schema: mkMSchema(modelName),
-        instanceMethods: mkInstanceMethods(modelName)
+        schema: mkMSchema(resourceName),
+        instanceMethods: mkInstanceMethods(resourceName)
       };
 
       return obj;
 
     };
 
-  function mkMSchema(modelName) {
+  function mkMSchema(resourceName) {
     const obj = {};
     // config.propertyStatements.
 
@@ -39,30 +77,30 @@ module.exports = function mkFileStruct(modelName) {
         file: [
           'index.js',
           {
-            identifier: modelName,
+            identifier: 'mongoose_schema',
             requiredModules: [
               { name: 'Schema', type: 'node', destructuring: 1, origin: 'mongoose' }, // so here we need of knowing which schema methods are required ahead of time
               { name: 'methods', type: 'rel', depth: 1 }
             ],
             requiredExports: ['schema'],
             bodyConfig: [
-              { type: 'mongooseSchema', modelName: modelName }
+              { type: 'mongooseSchema', resourceName: resourceName }
             ]
           }
         ],
-        methods: mkSMethods(modelName)
+        methods: mkSMethods(resourceName)
     };
 
   }
 
-  function mkSMethods(modelName) {
+  function mkSMethods(resourceName) {
 
     const obj = {};
       return {
           file: [
           'index.js',
           {
-          identifier: modelName,
+          identifier: 'mongoose_schema_methods',
           requiredModules: [
 
             { type: 'node', name: 'mongoose'}
@@ -77,13 +115,13 @@ module.exports = function mkFileStruct(modelName) {
 
   }
 
-    function mkInstanceMethods(modelName) {
+    function mkInstanceMethods(resourceName) {
 
       return {
           file: [
           'index.js',
           {
-            identifier: modelName,
+            identifier: 'mongoose_instance_methods',
             requiredModules: [
               // { type: 'rel', name: 'schema', depth: 1 },
               // { type: 'node', name: 'mongoose'}

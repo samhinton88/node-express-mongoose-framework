@@ -1,4 +1,8 @@
 module.exports = function(string) {
-
-  return string.charAt(0).toUpperCase() + string.slice(1)
+  return string
+    .split('_')
+    .map((word) => {
+      return word.charAt(0).toUpperCase() + string.slice(1)
+    })
+    .join('');
 }

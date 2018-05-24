@@ -46,7 +46,7 @@ function resourceParse(input) {
   }
 
   const config = {};
-  config.name = input[0];
+  config.resourceName = input[0];
   config.db = 'mongoDB';
   config.type = 'resource';
   config.props = [];

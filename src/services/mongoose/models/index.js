@@ -4,37 +4,47 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = async function modelBuilder(config = {}) {
-  const { name, db, type, refs, directory } = config;
+  const { name, db, type, refs, directory, controller } = config;
   let buildStructCount = 0;
 
   // establish directory in which to write model for given resource
   // TODO: swap out 'dist' for elected dir
-  const modelDir = directory + '/dist/models/';
+  log('bright', `has controller: ${controller !== undefined}`)
+
+  const modelDir      = directory + '/dist/models/';
+  const controllerDir = directory + '/dist/controllers/';
+
+  // await makeDir(controllerDir)
+
+
 
   log('green', 'START WORK TO BUILD MODEL')
 
   // make a blueprint for the directory structure of the model
-  const blueprint = mkFileStruct(name);
-  console.log('CONFIG', config)
-  console.log('BLUEPRINT', blueprint)
-  await writeToFileStruct(blueprint, modelDir, config);
+  const modelBlueprint = mkFileStruct(name, 'model', name);
+
+  const controllerBlueprint = mkFileStruct(name, 'controller', );
+  // console.log('controllerBlueprint', controllerBlueprint)
+
+  // console.log('CONFIG', config)
+  // console.log('IN modelBlueprint', modelBlueprint.architect.schema)
+
+  await writeToFileStruct(modelBlueprint, modelDir, config, name);
+  await writeToFileStruct(controllerBlueprint, controllerDir, config, `${name}-controller`);
+
 
   log('green' ,'DONE WORK, OUT OF IF STATEMENT, SHOULD BE LAST LINE')
 
-  async function writeToFileStruct(structObj, filePath, config) {
+  async function writeToFileStruct(structObj, filePath, config, fileName) {
 
     log('red' ,'Running: writeFileStruct')
-
-
-
     // parent dir for model
-    const parentPath = filePath + '/' + name;
+    const parentPath = filePath + '/' + fileName;
 
-    console.log('PARENT PATH', parentPath)
+    // console.log('PARENT PATH', parentPath)
 
     // create dir for parent path
     await makeDir(parentPath);
-
     //
     await buildStruct(parentPath, structObj[name], config);
 
@@ -75,13 +85,14 @@ module.exports = async function modelBuilder(config = {}) {
 };
 
 function makeFile(rootName, config, _config) {
-    console.log('_config on makeFile', _config)
+    // console.log('_config on makeFile', _config)
 
     const [fileName, conf] = config;
+    // console.log('MAKEFILE', conf)
 
     const content = writeContent(conf, _config)|| null;
 
-    console.log(content)
+    // console.log(content)
 
     const p = new Promise(function(resolve, reject) {
       fs.writeFile(rootName + '/' + fileName, content, (err) => {
